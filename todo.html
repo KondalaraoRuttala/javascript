@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Bootstrap To-Do List</title>
+  <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+  <style>
+    .rk {
+      margin-top: 200px;
+      background-color:;
+    }
+    body{
+      background-image: linear-gradient(to right,rgb(168, 136, 136), rgb(221, 179, 187),rgb(129, 129, 114));
+      height: 800px;
+    }
+  </style>
+</head>
+<body>
+  <div class="rk">
+
+    <div class="container mt-5">
+      <h1 class="text-center mb-4">My To-Do List</h1>
+      <div class="input-group mb-3">
+        <input type="text" id="taskInput" class="form-control" placeholder="Add a new task..."/>
+        <button class="btn btn-primary" type="button" id="submitBtn">Submit</button>
+      </div>
+      <ul id="tasklist" class="list-group">
+
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const taskInput = document.getElementById('taskInput');
+      const submitBtn = document.getElementById('submitBtn');
+      const tasklist = document.getElementById('tasklist');
+
+      submitBtn.addEventListener('click', () => {
+        const taskText = taskInput.value.trim();
+        if (taskText !== '') {
+          const listItem = document.createElement('li');
+          listItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+          listItem.innerHTML = `
+            <span>${taskText}</span>
+           <div class=''>
+             <button class="btn btn-danger btn-sm delete-btn">Delete</button>
+            <button class="btn btn-primary btn-sm save-btn">Save</button>
+            </div>
+            
+          `;
+
+          tasklist.appendChild(listItem);
+          taskInput.value = '';
+          listItem.querySelector('.save-btn').addEventListener('click', ()=>{
+            listItem.classList.toggle('list-group-item-success');
+          
+          })
+
+          const deleteButton = listItem.querySelector('.delete-btn');
+          deleteButton.addEventListener('click', () => {
+            listItem.remove();
+          });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
