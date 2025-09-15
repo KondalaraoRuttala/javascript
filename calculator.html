@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bootstrap Calculator</title>
+  <!-- Bootstrap CDN -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+  <style>
+    .calculator {
+      max-width: 350px;
+      margin: 40px auto;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(196, 46, 46, 0.5);
+      background: rgb(71, 66, 66);
+    }
+    .btn {
+      min-width: 60px;
+      min-height: 60px;
+      font-size: 1.3rem;
+    }
+    .display {
+      font-size: 2rem;
+      text-align: right;
+      margin-bottom: 15px;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #994b4b;
+      background: #eef3f8;
+      width: 100%;
+    }
+    body{
+        background-image: linear-gradient(to right,rgb(243, 143, 143), rgb(221, 179, 187),rgb(173, 173, 165));
+      height: 800px;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator shadow">
+    <input type="text" id="display" class="display mb-3" disabled>
+    
+    <div class="row g-2">
+      <div class="col-3"><button class="btn btn-danger" onclick="clearDisplay()">C</button></div>
+      <div class="col-3"><button class="btn btn-secondary" onclick="deleteLast()">&#x232B;</button></div>
+      <div class="col-3"><button class="btn btn-secondary" onclick="appendToDisplay('/')">÷</button></div>
+      <div class="col-3"><button class="btn btn-secondary" onclick="appendToDisplay('*')">&times;</button></div>
+    </div>
+    
+    <div class="row g-2 mt-2">
+      <div class="col-3"><button class="btn btn-light" onclick="appendToDisplay('7')">7</button></div>
+      <div class="col-3"><button class="btn btn-light" onclick="appendToDisplay('8')">8</button></div>
+      <div class="col-3"><button class="btn btn-light" onclick="appendToDisplay('9')">9</button></div>
+      <div class="col-3"><button class="btn btn-secondary" onclick="appendToDisplay('-')">-</button></div>
+    </div>
+    
+    <div class="row g-2 mt-2">
+      <div class="col-3"><button class="btn btn-light" onclick="appendToDisplay('4')">4</button></div>
+      <div class="col-3"><button class="btn btn-light" onclick="appendToDisplay('5')">5</button></div>
+      <div class="col-3"><button class="btn btn-light" onclick="appendToDisplay('6')">6</button></div>
+      <div class="col-3"><button class="btn btn-secondary" onclick="appendToDisplay('+')">+</button></div>
+    </div>
+    
+    <div class="row g-2 mt-2">
+      <div class="col-3"><button class="btn btn-light" onclick="appendToDisplay('1')">1</button></div>
+      <div class="col-3"><button class="btn btn-light" onclick="appendToDisplay('2')">2</button></div>
+      <div class="col-3"><button class="btn btn-light" onclick="appendToDisplay('3')">3</button></div>
+      <div class="col-3" rowspan="2">
+        <button class="btn btn-primary" style="height:124px;" onclick="calculate()">=</button>
+      </div>
+    </div>
+    
+    <div class="row g-2 mt-2">
+      <div class="col-6"><button class="btn btn-light" onclick="appendToDisplay('0')">0</button></div>
+      <div class="col-3"><button class="btn btn-light" onclick="appendToDisplay('.')">.</button></div>
+    </div>
+  </div>
+
+  <!-- Math.js Library -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.8.0/math.min.js"></script>
+
+  <script>
+    function appendToDisplay(value) {
+      const display = document.getElementById('display');
+      display.value += value;
+    }
+
+    function clearDisplay() {
+      document.getElementById('display').value = '';
+    }
+
+    function deleteLast() {
+      const display = document.getElementById('display');
+      display.value = display.value.slice(0, -1);
+    }
+
+    function calculate() {
+      const display = document.getElementById('display');
+      const expression = display.value;
+
+      try {
+        const result = math.evaluate(expression);
+        display.value = result;
+      } catch {
+        display.value = 'Error';
+      }
+    }
+  </script>
+</body>
+</html>
