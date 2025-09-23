@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <style>
+          body{ 
+            font-family: Arial,  sans-serif;
+            background-color: rgb(131, 167, 160);
+            margin: 0%; 
+            padding: 20px;
+            text-align: center;
+        } 
+         #demo {
+        display: grid;
+        grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
+        gap: 20px;
+        padding: 20px;
+        background: rgbargb(255,255,154,0.4);
+         }
+
+         #demo img{
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.4s ease;
+
+         }
+         #demo img :hover{
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+         }
+      
+       h1{
+        color: #333;
+        margin-bottom: 10px;
+        font-size: 2rem;
+       }
+    </style>
+</head>
+<body>
+    <h1>The CatAPI</h1>
+    <div  class="imageGallery" id="demo">CAT IMAGES</div>
+
+<script>
+    let divison = document.getElementById("demo");
+    divison.innerHTML = ``;
+    
+    async function imageGallery() {
+        const Response = await axios.get('https://api.thecatapi.com/v1/images/search?limit=10');
+        divison.innerHTML="";
+        Response.data.forEach(Element => {
+            divison.innerHTML += `
+            <img src="${Element.url}" alt="img">`;
+        });
+        console.log(Response);
+    }
+
+    imageGallery();
+</script>
+</body> 
+</html>
